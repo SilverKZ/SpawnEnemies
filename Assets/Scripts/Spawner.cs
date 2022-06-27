@@ -5,15 +5,16 @@ using UnityEngine;
 
 public class Spawner : MonoBehaviour
 {
-    [SerializeField] private GameObject _enemy;
     [SerializeField] private Transform[] _points;
     [SerializeField] private float _delay;
 
+    private GameObject _enemyTemplate;
     private int _index;
 
     private void Start()
     {
         _index = 0;
+        _enemyTemplate = GameObject.Find("Enemy");
         StartCoroutine(Timer());
     }
 
@@ -22,13 +23,13 @@ public class Spawner : MonoBehaviour
         while (_delay >= 0)
         {
             yield return new WaitForSeconds(_delay);
-            AddEnemy();
+            CreateEnemy();
         }
     }
 
-    private void AddEnemy()
+    private void CreateEnemy()
     {
-        GameObject enemy = Instantiate(_enemy, _points[_index].transform.position, Quaternion.identity);
+        GameObject enemy = Instantiate(_enemyTemplate, _points[_index].transform.position, Quaternion.identity);
         float _lifetime = 8f;
         Destroy(enemy, _lifetime);
         _index++;
