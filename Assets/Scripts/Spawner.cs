@@ -5,10 +5,9 @@ using UnityEngine;
 
 public class Spawner : MonoBehaviour
 {
-    [SerializeField] private GameObject _enemy;
+    [SerializeField] private Enemy _enemy;
     [SerializeField] private Transform[] _points;
     [SerializeField] private float _delay;
-
 
     private int _index;
 
@@ -29,9 +28,9 @@ public class Spawner : MonoBehaviour
 
     private void CreateEnemy()
     {
-        GameObject enemy = Instantiate(_enemy, _points[_index].transform.position, Quaternion.identity);
+        Enemy enemy = Instantiate(_enemy, _points[_index].transform.position, Quaternion.identity);
         float _lifetime = 8f;
-        Destroy(enemy, _lifetime);
+        Destroy(enemy.gameObject, _lifetime);
         _index++;
 
         if (_index == _points.Length)
